@@ -3,11 +3,12 @@ import './Loader.scss';
 
 interface LoaderProps {
   onComplete: () => void;
+  fading?: boolean;
 }
 
 const STAR_COUNT = 80;
 
-function Loader({ onComplete }: LoaderProps) {
+function Loader({ onComplete, fading }: LoaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -174,7 +175,7 @@ function Loader({ onComplete }: LoaderProps) {
   }, [onComplete]);
 
   return (
-    <div className="loader" ref={containerRef}>
+    <div className={`loader ${fading ? 'loader--fading' : ''}`} ref={containerRef}>
       <canvas ref={canvasRef} className="loader__canvas" />
 
       <div className="loader__title">

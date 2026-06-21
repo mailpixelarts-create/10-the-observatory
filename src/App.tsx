@@ -16,6 +16,7 @@ import { useScrollTrigger } from './hooks/useScrollTrigger';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [loaderHidden, setLoaderHidden] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
   useLenis();
@@ -26,26 +27,27 @@ function App() {
     return () => { document.body.style.overflow = ''; };
   }, [loaded]);
 
+  const handleLoaderComplete = () => {
+    setLoaded(true);
+    setTimeout(() => setLoaderHidden(true), 800);
+  };
+
   return (
     <>
       <Cursor />
-      <Loader onComplete={() => setLoaded(true)} />
-      {loaded && (
-        <>
-          <Navigation />
-          <main ref={mainRef}>
-            <Hero />
-            <Story />
-            <CoffeeCollection />
-            <ObservatoryDome />
-            <CoffeeOrigins />
-            <Laboratory />
-            <Gallery />
-            <Reservation />
-          </main>
-          <Footer />
-        </>
-      )}
+      {!loaderHidden && <Loader onComplete={handleLoaderComplete} fading={loaded} />}
+      <Navigation />
+      <main ref={mainRef}>
+        <Hero />
+        <Story />
+        <CoffeeCollection />
+        <ObservatoryDome />
+        <CoffeeOrigins />
+        <Laboratory />
+        <Gallery />
+        <Reservation />
+      </main>
+      <Footer />
     </>
   );
 }
