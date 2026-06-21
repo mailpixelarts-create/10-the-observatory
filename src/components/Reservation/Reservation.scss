@@ -1,0 +1,204 @@
+@import "../../styles/variables.scss";
+
+.reservation {
+  position: relative;
+  background: $bg-deep;
+  overflow: hidden;
+
+  &__particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__aurora {
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    right: -10%;
+    height: 60%;
+    background: linear-gradient(
+      135deg,
+      rgba($nebula-blue, 0.08) 0%,
+      rgba($purple, 0.06) 25%,
+      rgba($accent-cyan, 0.05) 50%,
+      rgba($purple, 0.04) 75%,
+      rgba($nebula-blue, 0.06) 100%
+    );
+    background-size: 400% 400%;
+    animation: aurora 15s ease-in-out infinite;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__label {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $gold;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    color: $white;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+
+    em {
+      font-style: italic;
+      background: linear-gradient(135deg, $gold, $accent-cyan);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  &__subtitle {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    color: rgba($moon, 0.6);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  &__form {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem;
+
+    @media (max-width: $bp-tablet) {
+      padding: 2rem 1.5rem;
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+
+      @media (max-width: $bp-tablet) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  &__field {
+    &--full {
+      margin-bottom: 2rem;
+    }
+
+    &-label {
+      display: block;
+      font-family: $font-mono;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba($moon, 0.5);
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    background: rgba($white, 0.04);
+    border: 1px solid $glass-border;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-family: $font-body;
+    font-size: 0.9rem;
+    color: $white;
+    transition: all 0.3s ease;
+    outline: none;
+
+    &::placeholder {
+      color: rgba($moon, 0.3);
+    }
+
+    &:focus {
+      border-color: rgba($gold, 0.4);
+      background: rgba($white, 0.06);
+      box-shadow: 0 0 20px rgba($gold, 0.05);
+    }
+  }
+
+  &__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%23DDE4EE' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+
+    option {
+      background: $surface;
+      color: $white;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  &__submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__note {
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    color: rgba($moon, 0.4);
+    letter-spacing: 0.05em;
+  }
+
+  &__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-body;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $bg-deep;
+    background: linear-gradient(135deg, $gold, lighten($gold, 5%));
+    padding: 1rem 2.5rem;
+    border-radius: 100px;
+    transition: all 0.4s $ease-out-expo;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba($gold, 0.3);
+    }
+
+    &-star {
+      font-size: 0.65rem;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover &-star {
+      transform: rotate(90deg);
+    }
+  }
+}

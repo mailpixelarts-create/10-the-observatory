@@ -1,0 +1,215 @@
+@import "../../styles/variables.scss";
+
+.origins {
+  position: relative;
+  background: $surface;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $glass-border, transparent);
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  &__label {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $accent-cyan;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    color: $white;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+
+    em {
+      font-style: italic;
+      background: linear-gradient(135deg, $accent-cyan, $nebula-blue);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  &__subtitle {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    color: rgba($moon, 0.6);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  &__map {
+    margin-bottom: 4rem;
+
+    &-container {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    &-svg {
+      width: 100%;
+      height: auto;
+      border: 1px solid $glass-border;
+      border-radius: 16px;
+      background: rgba($bg-deep, 0.5);
+    }
+  }
+
+  &__point {
+    transition: all 0.3s ease;
+
+    &-dot {
+      transition: all 0.3s ease;
+    }
+
+    &-ring {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    &-label {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover &-label,
+    &--active &-label {
+      opacity: 1;
+    }
+
+    &:hover &-dot {
+      filter: drop-shadow(0 0 4px rgba($gold, 0.6));
+    }
+  }
+
+  &__detail {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    padding: 2rem;
+    min-width: 280px;
+    animation: slideInRight 0.4s $ease-out-expo;
+
+    &-region {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: $accent-cyan;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    &-name {
+      font-family: $font-display;
+      font-size: 1.8rem;
+      color: $white;
+      margin-bottom: 1.25rem;
+    }
+
+    &-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    &-key {
+      font-family: $font-mono;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba($moon, 0.4);
+    }
+
+    &-val {
+      font-size: 0.9rem;
+      color: $white;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    @media (max-width: $bp-tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $bp-mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.4s $ease-out-expo;
+    text-align: center;
+
+    &:hover {
+      transform: translateY(-4px);
+      background: $glass-hover;
+    }
+
+    &--active {
+      border-color: rgba($gold, 0.3);
+      background: rgba($gold, 0.05);
+    }
+
+    &-constellation {
+      font-family: $font-mono;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: $gold;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    &-name {
+      font-family: $font-display;
+      font-size: 1.3rem;
+      color: $white;
+      margin-bottom: 0.25rem;
+    }
+
+    &-region {
+      font-size: 0.75rem;
+      color: rgba($moon, 0.5);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    &-notes {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: rgba($moon, 0.4);
+      text-transform: uppercase;
+    }
+  }
+}

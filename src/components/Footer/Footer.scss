@@ -1,0 +1,176 @@
+@import "../../styles/variables.scss";
+
+.footer {
+  position: relative;
+  background: $bg-deep;
+  padding: 5rem 0 3rem;
+  overflow: hidden;
+
+  &__constellation-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba($gold, 0.03), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+
+    @media (max-width: $bp-tablet) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__brand {
+    max-width: 300px;
+
+    &-star {
+      font-size: 1.2rem;
+      color: $gold;
+      display: block;
+      margin-bottom: 1rem;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    &-name {
+      font-family: $font-display;
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      letter-spacing: 0.15em;
+      font-weight: 300;
+      color: $white;
+      margin-bottom: 0.5rem;
+    }
+
+    &-tagline {
+      font-family: $font-body;
+      font-size: 0.8rem;
+      color: rgba($moon, 0.5);
+      letter-spacing: 0.05em;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 4rem;
+
+    @media (max-width: $bp-tablet) {
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__col {
+    &-title {
+      font-family: $font-mono;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: $gold;
+      margin-bottom: 1rem;
+    }
+
+    &-text {
+      font-size: 0.85rem;
+      color: rgba($moon, 0.5);
+      line-height: 1.8;
+    }
+
+    &-link {
+      display: block;
+      font-size: 0.85rem;
+      color: rgba($moon, 0.5);
+      line-height: 1.8;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  &__divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $glass-border, transparent);
+    margin-bottom: 2rem;
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (max-width: $bp-tablet) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  &__credit {
+    font-size: 0.75rem;
+    color: rgba($moon, 0.35);
+    line-height: 1.6;
+  }
+
+  &__highlight {
+    color: rgba($moon, 0.6);
+    font-weight: 500;
+  }
+
+  &__back-top {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba($moon, 0.4);
+    padding: 0.5rem 1rem;
+    border: 1px solid $glass-border;
+    border-radius: 100px;
+    transition: all 0.3s $ease-out-expo;
+
+    &:hover {
+      color: $gold;
+      border-color: rgba($gold, 0.3);
+    }
+
+    &-arrow {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover &-arrow {
+      transform: translateY(-3px);
+    }
+  }
+}

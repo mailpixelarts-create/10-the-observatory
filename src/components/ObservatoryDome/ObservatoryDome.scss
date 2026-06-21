@@ -1,0 +1,244 @@
+@import "../../styles/variables.scss";
+
+.dome {
+  position: relative;
+  background: $bg-deep;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  &__meteor-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &__sky {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+
+    &-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.3s ease-out;
+    }
+  }
+
+  &__constellation {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 80%;
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+
+    &:nth-child(1) { left: 5%; top: 8%; }
+    &:nth-child(2) { left: 25%; top: 12%; }
+    &:nth-child(3) { left: 48%; top: 5%; }
+    &:nth-child(4) { left: 65%; top: 10%; }
+    &:nth-child(5) { left: 80%; top: 15%; }
+
+    &-line {
+      stroke: rgba($gold, 0.2);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+      transition: all 0.5s ease;
+    }
+
+    &-star {
+      fill: rgba($white, 0.5);
+      transition: all 0.5s ease;
+    }
+
+    &-label {
+      font-family: $font-mono;
+      font-size: 8px;
+      fill: rgba($gold, 0.3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.5s ease;
+    }
+
+    &:hover,
+    &--active {
+      .dome__constellation-line {
+        stroke: rgba($gold, 0.7);
+        stroke-dasharray: none;
+      }
+      .dome__constellation-star {
+        fill: $gold;
+        filter: drop-shadow(0 0 6px rgba($gold, 0.5));
+      }
+      .dome__constellation-label {
+        fill: $gold;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__telescope {
+    position: absolute;
+    bottom: 15%;
+    right: 15%;
+    z-index: 5;
+
+    &-body {
+      position: relative;
+      width: 80px;
+      height: 120px;
+    }
+
+    &-lens {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, $accent-cyan, rgba($nebula-blue, 0.5));
+      box-shadow: 0 0 20px rgba($accent-cyan, 0.3);
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    &-barrel {
+      position: absolute;
+      top: 35px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-15deg);
+      width: 16px;
+      height: 60px;
+      background: linear-gradient(180deg, rgba($white, 0.12), rgba($white, 0.06));
+      border: 1px solid rgba($white, 0.1);
+      border-radius: 4px;
+    }
+
+    &-base {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 6px;
+      background: rgba($white, 0.08);
+      border-radius: 3px;
+    }
+
+    &-glow {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba($accent-cyan, 0.15), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+  }
+
+  &__header {
+    margin-bottom: 3rem;
+  }
+
+  &__label {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $accent-cyan;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    color: $white;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+
+    em {
+      font-style: italic;
+      background: linear-gradient(135deg, $accent-cyan, $nebula-blue);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  &__subtitle {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    color: rgba($moon, 0.6);
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  &__info {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 3rem;
+    margin-top: 2rem;
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    &-number {
+      font-family: $font-display;
+      font-size: 1.8rem;
+      color: $gold;
+    }
+
+    &-label {
+      font-family: $font-mono;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba($moon, 0.5);
+    }
+
+    &-divider {
+      width: 1px;
+      height: 40px;
+      background: $glass-border;
+    }
+  }
+
+  &__tooltip {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.5rem;
+    z-index: 20;
+    animation: fadeInUp 0.3s $ease-out-expo;
+
+    &-name {
+      font-family: $font-display;
+      font-size: 1.1rem;
+      color: $gold;
+    }
+  }
+}
