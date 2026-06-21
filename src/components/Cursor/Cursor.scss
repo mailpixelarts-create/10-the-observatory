@@ -1,0 +1,109 @@
+@use '../../styles/variables' as *;
+
+.cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: $z-cursor;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &--visible {
+    opacity: 1;
+  }
+
+  &--outer {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba($gold, 0.4);
+    transition:
+      transform 0.15s $ease-out-expo,
+      opacity 0.3s ease,
+      width 0.3s $ease-out-expo,
+      height 0.3s $ease-out-expo,
+      border-color 0.3s ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 1px solid rgba($accent-cyan, 0.15);
+      animation: rotate360 8s linear infinite;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -8px;
+      width: 4px;
+      height: 4px;
+      background: rgba($gold, 0.6);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: orbit 3s linear infinite;
+    }
+  }
+
+  &--inner {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $gold;
+    box-shadow: 0 0 10px rgba($gold, 0.5), 0 0 20px rgba($gold, 0.2);
+    transition:
+      transform 0.1s ease,
+      width 0.3s $ease-out-expo,
+      height 0.3s $ease-out-expo,
+      background 0.3s ease;
+
+    &.cursor--pressed {
+      transform: translate(-50%, -50%) scale(0.6);
+    }
+  }
+
+  &--outer.cursor--pressed {
+    width: 30px;
+    height: 30px;
+    border-color: rgba($accent-cyan, 0.6);
+  }
+}
+
+.cursor-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: $z-cursor;
+}
+
+.cursor-particle {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba($gold, 0.6);
+  pointer-events: none;
+  animation: particleFade 0.6s ease-out forwards;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes particleFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(-50% + var(--dx, 0px)),
+      calc(-50% + var(--dy, 0px))
+    );
+  }
+}
+
+@media (hover: none) {
+  .cursor { display: none !important; }
+  .cursor-particles { display: none !important; }
+}

@@ -1,0 +1,168 @@
+@use '../../styles/variables' as *;
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-nav;
+  padding: 1.5rem 0;
+  transition: all 0.5s $ease-out-expo;
+
+  &--scrolled {
+    padding: 1rem 0;
+    background: rgba($bg-deep, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid $glass-border;
+  }
+
+  &__inner {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0 $gutter;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+
+    &-icon {
+      font-size: 1.2rem;
+      color: $gold;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    &-text {
+      font-family: $font-display;
+      font-size: clamp(0.8rem, 1.2vw, 1rem);
+      letter-spacing: 0.2em;
+      font-weight: 300;
+      color: $white;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 2.5rem;
+
+    @media (max-width: $bp-desktop) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba($bg-deep, 0.95);
+      backdrop-filter: blur(30px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s $ease-out-expo;
+
+      &--open {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+
+  &__link {
+    font-family: $font-body;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $moon;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color $duration-fast ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: $gold;
+      transition: width 0.4s $ease-out-expo;
+    }
+
+    &:hover {
+      color: $white;
+      &::after { width: 100%; }
+    }
+
+    @media (max-width: $bp-desktop) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $bg-deep;
+    background: $gold;
+    padding: 0.65rem 1.5rem;
+    border-radius: 100px;
+    transition: all $duration-fast ease;
+
+    &:hover {
+      background: $white;
+      transform: translateY(-1px);
+    }
+
+    &-star {
+      font-size: 0.65rem;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover &-star {
+      transform: rotate(90deg);
+    }
+
+    @media (max-width: $bp-desktop) {
+      display: none;
+    }
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    width: 28px;
+    padding: 4px 0;
+    z-index: 10;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: $white;
+      transition: all 0.3s $ease-out-expo;
+      transform-origin: center;
+    }
+
+    &--open {
+      span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    }
+
+    @media (max-width: $bp-desktop) {
+      display: flex;
+    }
+  }
+}
